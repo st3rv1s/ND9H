@@ -27,9 +27,7 @@
 	Screaming in agony, you throw the weapon down!
 	You stop wielding Test of Test in your off-hand.
 	-->
-	<aliases>
-	</aliases>
-	
+
 	<triggers>
 	<trigger 
 		match="Your weapon has turned to fire!  IT BURNS!" 
