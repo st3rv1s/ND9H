@@ -235,6 +235,8 @@
         EnableTrigger("triggerDisarmed", false)
     end
 	
+]]>	
 </script>
 
 </muclient>
+
