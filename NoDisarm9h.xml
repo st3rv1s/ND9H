@@ -16,8 +16,8 @@
 	requires="5.07"
 	version="1.0"
 	>
-	
 	</plugin>
+	
 	<!-- 
 	Your weapon has turned to fire!  IT BURNS!
 	Screaming in agony, you throw the weapon down!
@@ -29,18 +29,27 @@
 	-->
 
 	<triggers>
-	<trigger 
-		match="Your weapon has turned to fire!  IT BURNS!" 
-		name="triggerEnableDisarm" enabled="y" group="triggerGroupQuest" omit_from_output="n" regexp="n" sequence="99" script="triggerEnableDisarm"> 
-	</trigger>
-	<trigger 
-		match="^You stop wielding (?<weapon>.*) in your (?<wield>primary hand|off-hand)\.$" 
-		name="triggerDisarmed" enabled="n" group="triggerGroupQuest" omit_from_output="n" regexp="y" sequence="99" script="triggerDisarmed"> 
-	</trigger>  
+		<trigger 
+		 match="Your weapon has turned to fire!  IT BURNS!" 
+		 name="triggerEnableDisarm"
+		 enabled="y"
+		 omit_from_output="n" 
+		 regexp="n"
+		 sequence="99"
+		 script="triggerEnableDisarm"> 
+		</trigger>
+		<trigger 
+		 match="^You stop wielding (?<weapon>.*) in your (?<wield>primary hand|off-hand)\.$" 
+		 name="triggerDisarmed" 
+		 enabled="n" 
+		 omit_from_output="n" 
+		 regexp="y" 
+		 sequence="99" 
+		 script="triggerDisarmed"> 
+		</trigger>  
 	</triggers>
 	
-    <aliases>
-         
+    <aliases>      
         <!-- Alias for checking update -->
         <alias
           match="^nd9h\supdate\scheck$"
@@ -48,8 +57,7 @@
           regexp="y"
           sequence="99"
           script="update_check_alias"
-        />
-        
+        />        
         <!-- Alias for installing update -->
         <alias
           match="^nd9h\supdate\sinstall$"
@@ -57,16 +65,15 @@
           regexp="y"
           sequence="99"
           script="update_install_alias"
-        />
-    
+        />    
     </aliases>
+
+<!--  Get our standard constants -->
 	
-	<!--  Get our standard constants -->
+<include name="constants.lua"/>
 	
-	<include name="constants.lua"/>
-	
-	<!--  Script  -->
-	<script>
+<!--  Script  -->
+<script>
 	<![CDATA[
 	
       ----------------------- Plugin Update Code -----------------------
@@ -185,7 +192,7 @@
 	end
 	end
 	
-	-- Utility function to scrub string of small words like "a", "an", "of", "the"
+-- Utility function to scrub string of small words like "a", "an", "of", "the"
 	function scrubString(input)
 		-- Define a set of words to be removed
 		local wordsToRemove = {
@@ -215,6 +222,7 @@
 		dnote( ("%striggerEnableDisarm() was called. Turning on 'triggerDisarmed' trigger and listening for the weapon line."):format(Prepend) )
 		EnableTrigger( "triggerDisarmed", true )
 	end
+	
 	-- Function to determine weapon and wield position and to re-wear the weapon
     function triggerDisarmed(name, lines, args)
         dnote( ("%striggerDisarmed() was called. Processing weapon name and wield position."):format(Prepend) )
@@ -227,35 +235,6 @@
         EnableTrigger("triggerDisarmed", false)
     end
 	
-	--[[ Functions to save and load the settings ]]--
-	function SaveSettings()
-		--SetVariable("SoundSettings", serialize.save_simple(SoundSettings))
-	end
-	function LoadSettings()
-	--assert(loadstring("SoundSettings = "..GetVariable("SoundSettings"))) ()
-	end
-	function OnPluginInstall()
-		OnPluginEnable()
-	end
-	function OnPluginEnable()
-	--[[
-	local settings = GetVariable("SoundSettings")
-	if settings and settings ~= "" then
-		assert(loadstring("SoundSettings = "..GetVariable("SoundSettings"))) ()
-	else
-		initializeSoundSettings()
-	end
-	if not SoundSettings.qmessage then
-		SoundSettings.qmessage = "@D[@RQUEST@D]: @CIt is time to quest!!!@w"
-	end
-	COMMAND_SoundAdmin_Help()
-	]]--
-	end
-	function OnHelp ()
-	world.Note (world.GetPluginInfo (world.GetPluginID (), 3))
-	end
-	]]>
-	
-	</script>
+</script>
 
 </muclient>
