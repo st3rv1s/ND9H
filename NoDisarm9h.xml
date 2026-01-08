@@ -28,6 +28,7 @@
 	-->
 
 	<triggers>
+		<!-- Trigger for enabling disarm -->
 		<trigger 
 		 match="Your weapon has turned to fire!  IT BURNS!" 
 		 name="triggerEnableDisarm"
@@ -37,6 +38,7 @@
 		 sequence="99"
 		 script="triggerEnableDisarm"> 
 		</trigger>
+		<!-- Trigger for rewielding -->
 		<trigger 
 		 match="^You stop wielding (?<weapon>.*) in your (?<wield>primary hand|off-hand)\.$" 
 		 name="triggerDisarmed" 
