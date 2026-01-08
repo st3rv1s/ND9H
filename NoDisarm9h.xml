@@ -13,22 +13,22 @@
 	purpose="Wield weapons after disarm in Nine Hells"
 	date_written="2024-08-05 10:31:11"
 	requires="5.07"
-	version="1.0"
+	version="1.1"
 	>
 	</plugin>
 	
-	<!-- 
-	Your weapon has turned to fire!  IT BURNS!
-	Screaming in agony, you throw the weapon down!
-	You stop wielding Axe of Aardwolf in your primary hand.
-	
-	Your weapon has turned to fire!  IT BURNS!
-	Screaming in agony, you throw the weapon down!
-	You stop wielding Test of Test in your off-hand.
-	-->
+<!-- 
+Your weapon has turned to fire!  IT BURNS!
+Screaming in agony, you throw the weapon down!
+You stop wielding Axe of Aardwolf in your primary hand.
+
+Your weapon has turned to fire!  IT BURNS!
+Screaming in agony, you throw the weapon down!
+You stop wielding Test of Test in your off-hand.
+-->
 
 	<triggers>
-		<!-- Trigger for enabling disarm -->
+<!-- Trigger for enabling disarm -->
 		<trigger 
 		 match="Your weapon has turned to fire!  IT BURNS!" 
 		 name="triggerEnableDisarm"
@@ -38,7 +38,7 @@
 		 sequence="99"
 		 script="triggerEnableDisarm"> 
 		</trigger>
-		<!-- Trigger for rewielding -->
+<!-- Trigger for rewielding -->
 		<trigger 
 		 match="^You stop wielding (?<weapon>.*) in your (?<wield>primary hand|off-hand)\.$" 
 		 name="triggerDisarmed" 
@@ -51,7 +51,7 @@
 	</triggers>
 	
     <aliases>      
-        <!-- Alias for checking update -->
+<!-- Alias for checking update -->
         <alias
           match="^nd9h\supdate\scheck$"
           enabled="y"
@@ -59,7 +59,7 @@
           sequence="99"
           script="update_check_alias"
         />        
-        <!-- Alias for installing update -->
+<!-- Alias for installing update -->
         <alias
           match="^nd9h\supdate\sinstall$"
           enabled="y"
@@ -74,8 +74,10 @@
 <include name="constants.lua"/>
 	
 <!--  Script  -->
+
 <script>
-	<![CDATA[
+
+<![CDATA[
 	
 ----------------------- External Resources -----------------------
 	dofile(GetInfo(60) .. "aardwolf_colors.lua") -- Used to support Aard Colors for the cnote() function
@@ -98,6 +100,7 @@
 			["of"] = true,
 			["the"] = true
 		}
+		
 -- Split the input string into words
 		local words = {}
 		for word in input:gmatch("%S+") do
@@ -125,9 +128,9 @@
     function triggerDisarmed(name, lines, args)
         weapon = scrubString(args.weapon)
         if args.wield == "primary hand" then
-            Send( ("wield %s"):format(weapon) )
+            SendNoEcho( ("wield %s"):format(weapon) )
         elseif args.wield == "off-hand" then
-            Send( ("second %s"):format(weapon) )
+            SendNoEcho( ("second %s"):format(weapon) )
         end
         EnableTrigger("triggerDisarmed", false)
     end
@@ -230,6 +233,7 @@
 ----------------------- End Plugin Update Code -----------------------	
 	
 ]]>	
+
 </script>
 
 </muclient>
